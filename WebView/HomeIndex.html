@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- STYLES -->
+  <link rel="stylesheet" href="../style/bootstrap4.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../style/style.css">
+  <!-- STYLES -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- SCRIPTS -->
+  <script src="../Scripts/jquery3.3.1.js"></script>
+  <script src="../Scripts/tether.js"></script>
+  <script src="../Scripts/bootstrap.min.js"></script>
+  <script src="../Scripts/angular.min.js"></script>
+  <script src="../Scripts/chartist.js"></script>
+  <script src="../Scripts/script.js"></script>
+  <!-- SCRIPTS -->
+  <title>TaskManager - Gerenciar Tarefas</title>
+</head>
+
+<body data-ng-app="app">
+
+  <div id="wrapper">
+    <div id="sidebar-wrapper" ng-init="organize = 'Categoria'">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="taskmanager" href="../index.html">
+            <span class="fa fa-edit manager-logo"></span>
+            <span class="task-logo">Task</span>
+            <span class="manager-logo">Manager</span>
+          </a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="../index.html">
+            <span class="fa fa-home"></span> Home</a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="CategoryIndex.html">
+            <span class="fa fa-plus"></span> Cadastrar Categoria</a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="TaskIndex.html">
+            <span class="fa fa-plus"></span> Cadastrar Tarefa</a>
+        </li>
+        <li class="organize-list side-bar-item">
+          <a href="#" ng-click="organize = (organize == 'Categoria' ? 'Status' : 'Categoria')">
+            <span class="fa fa-list-alt"></span> Visualizando por {{organize}}</a>
+        </li>
+        <li>
+          <button class="btn input-filter side-bar-item fa fa-filter">
+            <input class="input-filter" data-ng-model="filter" type="text" placeholder=" Filtrar Tarefa...">
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div id="page-content-wrapper" data-ng-controller="TaskController as Tasks">
+      <div class="pos-f-t">
+        <nav class="navbar-inverse bg-inverse">
+          <div class="container container-fluid">
+            <button href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">
+              <span class="fa fa-navicon"></span>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <div class="container main" ng-init="tasksList = Tasks.tarefas; catList = Cats.categorias" data-ng-controller="CategoryController as Cats"
+        ng-readonly="Tasks.showdash(tasksList,catList)">
+        <h2>CONTROLE DE TAREFAS</h2>
+        <hr>
+        <div class="btn-group">
+          <button href="#" class="btn btn-secondary" ng-click="organize = (organize == 'Categoria' ? 'Status' : 'Categoria')">
+            <span class="fa fa-list-alt"></span> Visualizando por {{organize}}
+          </button>
+          <button class="btn btn-secondary input-filter fa fa-filter float-right">
+            <input data-ng-model="filter" type="text" placeholder=" Filtrar Tarefa...">
+          </button>
+        </div>
+
+        <div class="col-3 float-right mt-5" ng-if="organize == 'Status'">
+          <div class="content">
+            <div class="text-center">
+              <strong>
+                Análise de tarefas por {{organize}}
+              </strong>
+            </div>
+            <div id="dashstatus" class="ct-chart ct-perfect-fourth"></div>
+            <div class="footer">
+              <div class="legend text-center">
+                <button disabled="disabled" class="ct-series-a"></button> Concluidas
+                <button disabled="disabled" class="ct-series-b"></button> Pendentes
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-left col-9 p-0" ng-if="organize == 'Status'" ng-repeat="stat in Tasks.status">
+          <label class="table-title" ng-init="statTitle = stat.nome ? 'Realizadas' : 'Pendentes'">Tarefas {{ statTitle }}</label>
+          <table class="table table-inverse">
+            <thead>
+              <tr>
+                <th>
+                  <span class="fa fa-check"></span> Tarefa Realizada</th>
+                <th>
+                  <span class="fa fa-edit"></span> Tarefa</th>
+                <th>
+                  <span class="fa fa-list-alt"></span> Categoria</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-ng-repeat="task in tasksList | filter:filter" ng-if="task.feito == stat.nome">
+                <td>
+                  <input ng-if="task.feito == true" checked type="checkbox" ng-click="task.feito = !(task.feito); Tasks.showdash(tasksList)"></input>
+                  <input ng-if="task.feito == false" type="checkbox" ng-click="task.feito = !(task.feito); Tasks.showdash(tasksList)"></input>
+                </td>
+                <td>
+                  <strike ng-if="task.feito == true">{{ task.nome }}</strike>
+                  <span ng-if="task.feito == false">{{ task.nome }}</span>
+                </td>
+                <td>
+                  <strike ng-if="task.feito == true">{{ task.categoria }}</strike>
+                  <span ng-if="task.feito == false">{{ task.categoria }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div ng-if="organize == 'Categoria'" ng-repeat="categoria in Cats.categorias">
+          <label class="table-title">{{categoria.nome}}</label>
+          <div class="row pl-3 pr-3">
+            <table class="mt-2 table table-inverse tablefix">
+              <thead>
+                <tr>
+                  <th>
+                    <span class="fa fa-check"></span> Tarefa Realizada</th>
+                  <th>
+                    <span class="fa fa-edit"></span> Tarefa</th>
+                  <th>
+                    <span class="fa fa-list-alt"></span> Categoria</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="task in tasksList | filter:filter" ng-if="task.categoria == categoria.nome">
+                  <td>
+                    <input ng-if="task.feito == true" checked type="checkbox" ng-click="task.feito = !(task.feito); Tasks.showdash(tasksList)"></input>
+                    <input ng-if="task.feito == false" type="checkbox" ng-click="task.feito = !(task.feito); Tasks.showdash(tasksList)"></input>
+                  </td>
+                  <td>
+                    <strike ng-if="task.feito == true">{{ task.nome }}</strike>
+                    <span ng-if="task.feito == false">{{ task.nome}}</span>
+                  </td>
+                  <td>
+                    <strike ng-if="task.feito == true">{{ task.categoria }}</strike>
+                    <span ng-if="task.feito == false">{{ task.categoria }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="col-3" ng-if="organize == 'Categoria'">
+              <div class="content">
+                <div class="text-center">
+                  <strong>
+                    Análise de tarefas da
+                    <br> categoria {{categoria.nome}}
+                  </strong>
+                </div>
+                <div id="{{categoria.nome}}" class="ct-chart ct-perfect-fourth">
+
+                </div>
+                <div class="legend text-center">
+                  <button disabled="disabled" class="ct-series-a"></button> Concluidas
+                  <button disabled="disabled" class="ct-series-b"></button> Pendentes
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

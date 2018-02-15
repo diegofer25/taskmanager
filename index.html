@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- STYLES -->
+  <link rel="stylesheet" href="./style/bootstrap4.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <!-- STYLES -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- SCRIPTS -->
+  <script src="Scripts/jquery3.3.1.js"></script>
+  <script src="Scripts/tether.js"></script>
+  <script src="Scripts/bootstrap.min.js"></script>
+  <script src="Scripts/angular.min.js"></script>
+  <script src="Scripts/chartist.js"></script>
+  <script src="Scripts/script.js"></script>
+  <!-- SCRIPTS -->
+  <title>TaskManager - Home</title>
+</head>
+
+<body data-ng-app="app">
+
+  <div id="wrapper">
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="index.html">
+            <span class="fa fa-edit manager-logo"></span>
+            <span class="task-logo">Task</span>
+            <span class="manager-logo">Manager</span>
+          </a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="WebView/HomeIndex.html">
+            <span class="fa fa-tasks"></span> Controle de Tarefas</a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="WebView/CategoryIndex.html">
+            <span class="fa fa-plus"></span> Cadastrar Categoria</a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="WebView/TaskIndex.html">
+            <span class="fa fa-plus"></span> Cadastrar Tarefa</a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="page-content-wrapper">
+      <div class="pos-f-t">
+        <nav class="navbar-inverse bg-inverse">
+          <div class="container container-fluid">
+            <button href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">
+              <span class="fa fa-navicon"></span>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <div class="container main" ng-controller="IndexController as IndexC">
+        <h1 class="text-center">Bem vindo ao
+          <br>
+          <span class="fa fa-edit manager-logo"></span>
+          <span class="task-logo">Task</span>
+          <span class="manager-logo">Manager</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

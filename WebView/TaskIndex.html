@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- STYLES -->
+  <link rel="stylesheet" href="../style/bootstrap4.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../style/style.css">
+  <!-- STYLES -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- SCRIPTS -->
+  <script src="../Scripts/jquery3.3.1.js"></script>
+  <script src="../Scripts/tether.js"></script>
+  <script src="../Scripts/bootstrap.min.js"></script>
+  <script src="../Scripts/angular.min.js"></script>
+  <script src="../Scripts/chartist.js"></script>
+  <script src="../Scripts/script.js"></script>
+  <!-- SCRIPTS -->
+  <title>TaskManager - Cadastrar Tarefas</title>
+</head>
+
+<body data-ng-app="app">
+
+  <div id="wrapper">
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="taskmanager" href="../index.html">
+            <span class="fa fa-edit manager-logo"></span>
+            <span class="task-logo">Task</span>
+            <span class="manager-logo">Manager</span>
+          </a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="../index.html">
+            <span class="fa fa-home"></span> Home</a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="HomeIndex.html">
+            <span class="fa fa-tasks"></span> Controle de Tarefas</a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="CategoryIndex.html">
+            <span class="fa fa-plus"></span> Cadastrar Categorias</a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="page-content-wrapper" data-ng-controller="TaskController as Tasks">
+
+      <div class="pos-f-t">
+        <nav class="navbar-inverse bg-inverse">
+          <div class="container container-fluid">
+            <button href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">
+              <span class="fa fa-navicon"></span>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      <div class="container" data-ng-controller="CategoryController as Cats" ng-init="tlist = Tasks.tarefas; clist = Cats.categorias">
+        <h2>GERENCIAR TAREFAS</h2>
+        <hr>
+        <div class="form">
+          <strong for="tarefa">Tarefa: </strong>
+          <div class="form-inline mt-1 mb-0">
+            <input id="user-input" type="text" class="form-control col-sm-8" id="inlineFormInput" placeholder="Forneça um nome para a nova tarefa..."
+              ng-model="tInput" ng-change="Tasks.checkInput(tInput, tlist, cInput)">
+
+            <div class="btn-group col-sm-4 p-0">
+              <button class="btn text-infobtn col-sm-4">
+                <span class="fa fa-list-alt"></span> Categoria:
+              </button>
+              <select class="form-control select custom-select col-sm-8" ng-model="cInput" ng-change="Tasks.checkInput(tInput, tlist, cInput)">
+                <option ng-repeat="c in clist">{{c.nome}}</option>
+              </select>
+            </div>
+          </div>
+          <button id="button-info" class="btn btn-info col-sm-12">
+            <span class="fa fa-info-circle">
+              Preencha os campos acima para cadastrar uma nova tarefa
+            </span>
+          </button>
+          <button id="button-submit" class="d-none" ng-click="Tasks.cadTask(tInput, cInput, tlist)">
+            <span class="fa fa-plus-circle"></span> Cadastrar tarefa
+          </button>
+        </div>
+
+        <table class="table table-inverse mt-3">
+          <thead>
+            <tr>
+              <th>
+                <span class="fa fa-edit"></span> Tarefa</th>
+              <th>
+                <span class="fa fa-list-alt"></span> Categoria</th>
+              <th>
+                <span class="fa fa-trash"></span> Deletar Tarefa
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(key, value) in tlist | filter:tInput">
+              <td>{{value.nome}}</td>
+              <td>{{value.categoria}}</td>
+              <td>
+                <button class="btn btn-danger" ng-click="Tasks.removeTask(tlist, key)">
+                  <span class="fa fa-remove"></span> Deletar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
