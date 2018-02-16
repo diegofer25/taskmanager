@@ -15,7 +15,7 @@
   <script src="../Scripts/tether.js"></script>
   <script src="../Scripts/bootstrap.min.js"></script>
   <script src="../Scripts/angular.min.js"></script>
-  <script src="../Scripts/chartist.js"></script>
+  <script src="../Scripts/plotly.js"></script>
   <script src="../Scripts/script.js"></script>
   <!-- SCRIPTS -->
   <title>TaskManager - Gerenciar Tarefas</title>
@@ -24,7 +24,7 @@
 <body data-ng-app="app">
 
   <div id="wrapper">
-    <div id="sidebar-wrapper" ng-init="organize = 'Categoria'">
+    <div id="sidebar-wrapper" ng-init="organize = 'Status'">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
           <a class="taskmanager" href="../index.html">
@@ -82,20 +82,7 @@
         </div>
 
         <div class="col-3 float-right mt-5" ng-if="organize == 'Status'">
-          <div class="content">
-            <div class="text-center">
-              <strong>
-                Análise de tarefas por {{organize}}
-              </strong>
-            </div>
-            <div id="dashstatus" class="ct-chart ct-perfect-fourth"></div>
-            <div class="footer">
-              <div class="legend text-center">
-                <button disabled="disabled" class="ct-series-a"></button> Concluidas
-                <button disabled="disabled" class="ct-series-b"></button> Pendentes
-              </div>
-            </div>
-          </div>
+            <div id="dashstatus"></div>
         </div>
         <div class="float-left col-9 p-0" ng-if="organize == 'Status'" ng-repeat="stat in Tasks.status">
           <label class="table-title" ng-init="statTitle = stat.nome ? 'Realizadas' : 'Pendentes'">Tarefas {{ statTitle }}</label>

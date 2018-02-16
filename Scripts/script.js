@@ -176,6 +176,21 @@ function eraseInput() {
     $('#user-input').val('');
 }
 
+(function(){
+    window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};
+    
+    var gd = document.getElementById('944c6d9b-3d65-40d9-9d22-c50a1ca40c93')
+    var resizeDebounce = null;
+    
+    function resizePlot() {
+        var bb = gd.getBoundingClientRect();
+        Plotly.relayout(gd, {
+            width: bb.width,
+            height: bb.height
+        });
+    }
+}());
+
 let statustarefa = {
     initChartist: function (taks, cats) {
 
@@ -189,11 +204,15 @@ let statustarefa = {
                 pendentes++;
             }
         });
-
-        Chartist.Pie('#dashstatus', {
-            labels: [`${parseInt((concluidas / total) * 100)}%`, `${parseInt((pendentes / total) * 100)}%`],
-            series: [(concluidas / total) * 100, (pendentes / total) * 100]
-        });
+        let dashstatus = $('#dashstatus');
+        if(dashstatus){
+            Plotly.newPlot('dashstatus', {
+                data: [{"sort": true, "opacity": 0.9, "direction": "counterclockwise", "uid": "151083", "labelssrc": "diegofer25:2:371d18", "labels": [`Concluídas: ${parseInt((concluidas / total) * 100)}%`,`Pendentes: ${parseInt((pendentes / total) * 100)}%`], "values": [parseInt((concluidas / total) * 100), parseInt((pendentes / total) * 100)], "hoverinfo": "label", "marker": {"line": {"color": "rgb(140, 0, 0)"}, "colors": ["rgb(190, 207, 182)", "rgb(125, 178, 143)", "rgb(40, 144, 126)", "rgb(16, 125, 121)", "rgb(24, 97, 108)", "rgb(28, 71, 93)"]}, "textinfo": "percent", "type": "pie", "valuessrc": "diegofer25:2:b759c3", "name": "values"}],
+                layout: {"autosize": false, "font": {"family": "Roboto"}, "title": "<b>An\u00e1lise de Tarefas por Status<\/b>", "paper_bgcolor": "rgb(255, 255, 255)", "hiddenlabels": [], "height": 300, "width": 300, "titlefont": {"family": "Roboto"}, "hovermode": "closest", "breakpoints": [{"frame": "workspace-breakpoint-0", "type": "width", "range": [0, 300]}], "margin": {"r": 80, "b": 60, "l": 70, "t": 120}, "legend": {"y": 1.423148148148148, "x": 0.02194324194324196}},
+                frames: [{"data": [], "layout": {"autosize": false, "title": "<b>An\u00e1lise de Tarefas por Status<\/b>", "paper_bgcolor": "rgb(255, 255, 255)", "height": 300, "width": 300, "titlefont": {"family": "Roboto"}, "hovermode": "closest", "font": {"family": "Roboto"}, "margin": {"pad": 0, "r": 60, "b": 0, "l": 40, "t": 80}, "legend": {"y": 1.1814814814814816, "x": 0.1310341510341511, "font": {"color": "rgb(0, 0, 0)"}, "borderwidth": 0, "bordercolor": "rgb(0, 0, 0)"}}, "name": "workspace-breakpoint-0"}],
+                config: {"mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A", "linkText": "Export to plot.ly", "showLink": true, staticPlot: true}
+            });
+        }
         
         cats.forEach(c => {
             pendentes = 0;
@@ -207,10 +226,6 @@ let statustarefa = {
                     pendentes++;
                     total++;
                 }
-            });
-            Chartist.Pie(`#${c.nome}`, {
-                labels: [`${parseInt((concluidas / total) * 100)}%`, `${parseInt((pendentes / total) * 100)}%`],
-                series: [(concluidas / total) * 100, (pendentes / total) * 100]
             });
         });
     }
