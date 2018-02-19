@@ -131,7 +131,6 @@ h2,h1,h3,h4,h5,h6{
 .ct-series-a{
   fill: rgb(27, 177, 27);
   background: rgb(27, 177, 27);
-  animation: animleft 1s;
 }
 
 .ct-series-a:hover, .ct-series-b:hover{
@@ -141,7 +140,6 @@ h2,h1,h3,h4,h5,h6{
 .ct-series-b{
   fill: rgb(255, 68, 0);
   background: rgb(255, 68, 0);
-  animation: animleft 1s;
 }
 
 .ct-series-a, .ct-series-b{
@@ -150,45 +148,12 @@ h2,h1,h3,h4,h5,h6{
   width: 20px;
   height: 20px;
   border-radius: 5px;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease;
 }
 
 .ct-label{
   transform: scale3d(1,1,1);
   fill: white;
   text-shadow: 1px 1px 1px black;
-  animation: animlabel 1s;
-}
-
-@-webkit-keyframes animleft {
-    0% {
-      transform: scale3d(0,1,0);
-      animation: initial;
-    }
-}
-
-@keyframes animleft {
-    0% {
-      transform: scale3d(0,1,0);
-      animation: initial;
-    }
-}
-
-@-webkit-keyframes animlabel {
-  0% {
-    transform: scale3d(0,-1,0);
-    animation: initial;
-  }
-}
-
-@keyframes animlabel {
-  0% {
-    transform: scale3d(0,-1,0);
-    animation: initial;
-  }
 }
 
 .btn-success:focus, .btn-warning:focus, .btn-danger:focus,
