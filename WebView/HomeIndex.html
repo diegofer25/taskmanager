@@ -67,7 +67,6 @@
           </div>
         </nav>
       </div>
-
       <div class="container main" ng-init="tasksList = Tasks.tarefas; catList = Cats.categorias" data-ng-controller="CategoryController as Cats"
         ng-readonly="Tasks.showdash(tasksList,catList)">
         <h2>CONTROLE DE TAREFAS</h2>
@@ -97,7 +96,7 @@
             </div>
           </div>
         </div>
-        <div class="float-left col-9 p-0" ng-if="organize == 'Status'" ng-repeat="stat in Tasks.status">
+        <div class="float-left col-9 p-0" ng-if="organize == 'Status'" ng-repeat="stat in Tasks.status" ng-class="IsFiltered(stat.Filtered)">
           <label class="table-title" ng-init="statTitle = stat.nome ? 'Realizadas' : 'Pendentes'">Tarefas {{ statTitle }}</label>
           <table class="table table-inverse">
             <thead>
@@ -111,7 +110,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="task in tasksList | filter:filter" ng-if="task.feito == stat.nome">
+              <tr data-ng-repeat="task in tasksList | filter:filter" ng-class="IsFiltered(task.Filtered)" ng-if="task.feito == stat.nome">
                 <td>
                   <input ng-if="task.feito == true" checked type="checkbox" ng-click="task.feito = !(task.feito); Tasks.Tasks.showdash(tasksList,catList)"></input>
                   <input ng-if="task.feito == false" type="checkbox" ng-click="task.feito = !(task.feito); Tasks.Tasks.showdash(tasksList,catList)"></input>
@@ -129,7 +128,7 @@
           </table>
         </div>
 
-        <div ng-if="organize == 'Categoria'" ng-repeat="categoria in Cats.categorias">
+        <div ng-if="organize == 'Categoria'" ng-repeat="categoria in Cats.categorias" ng-class="IsFiltered(categoria.Filtered)">
           <label class="table-title">{{categoria.nome}}</label>
           <div class="row pl-3 pr-3">
             <table class="mt-2 table table-inverse tablefix">
