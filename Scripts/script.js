@@ -18,14 +18,12 @@ function TaskController($http) {
     let self = this;
     self.status = stats;
     self.tarefas = [];
-    console.log(self.tarefas);
     $http.get('http://taskmanager-api.azurewebsites.net/api/Taskmanager')
       .then(function(result) {
         result.data.forEach(t => {
             self.tarefas.push(t);
         });
     });
-    console.log(self.tarefas);
     self.checkInput = checkInput;
     self.cadTask = cadTask;
     self.removeTask = removeTask;
