@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-ng-app="app">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- STYLES -->
+  <link rel="stylesheet" href="style/bootstrap4.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style/style.css">
+  <!-- STYLES -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- SCRIPTS -->
+  <script src="Scripts/jquery3.3.1.js"></script>
+  <script src="Scripts/tether.js"></script>
+  <script src="Scripts/bootstrap.min.js"></script>
+  <script src="Scripts/angular.min.js"></script>
+  <script src="Scripts/script.js"></script>
+  <!-- SCRIPTS -->
+  <title>TaskManager - Seção Expirada</title>
+</head>
+
+<body ng-controller="RouterController as Router" ng-init="Router.checkSession()">
+
+    <div id="overlay">
+        <div class="loader"></div>
+    </div>
+
+    <div id="page-content-wrapper">
+        <div class="pos-f-t">
+            <nav class="navbar-inverse bg-inverse p-0">
+                <div class="container container-fluid text-center">
+                    <h1 class="text-white d-inline-block m-2">
+                        <span class="fa fa-edit manager-logo"></span>
+                        <span class="task-logo">Task</span>
+                        <span class="manager-logo">Manager</span>
+                    </h1>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container main col-6">
+            
+            <div class="mt-5">
+                <button class="btn btn-warning col-12 text-center" ng-click="Router.index()">
+                    <span class="fa fa-warning"> Opa, parece que sua seção expirou!<br>
+                    Autentique-se novamente <strong>aqui</strong></span>
+                </button>
+            </div>
+            
+            <footer>
+                <hr>
+                <span class="fa fa-edit manager-logo"></span>
+                <span class="task-logo">Task</span>
+                <span class="manager-logo">Manager </span>
+                <span class="task-logo">
+                    &copy;
+                </span>
+            </footer>
+        </div>
+    </div>
+
+</body>
+
+</html>

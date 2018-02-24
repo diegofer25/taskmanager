@@ -4,6 +4,11 @@ body{
   background: url('../images/background.jpg') no-repeat;
 }
 
+.jumbotron{
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
 a.taskmanager{
   text-decoration: none;
   display: none;
@@ -103,6 +108,14 @@ div .input-filter{
 .form-control:focus{
   background: rgba(0, 0, 0, 0.8);
   color: rgb(255, 255, 255);
+}
+
+.btn-info{
+  background:lightsteelblue;
+}
+
+.btn-info:hover{
+  background: lightslategray;
 }
 
 .btn-info{
@@ -329,3 +342,95 @@ h2,h1,h3,h4,h5,h6{
 }
 
 /* END OF SIDE MENU */
+
+
+#login-dp{
+  min-width: 250px;
+  padding: 14px 14px 0;
+  overflow:hidden;
+  background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+  font-size:12px    
+}
+#login-dp .bottom{
+  background-color:rgba(255,255,255,.8);
+  border-top:1px solid #ddd;
+  clear:both;
+  padding:14px;
+}
+#login-dp .social-buttons{
+  margin:12px 0    
+}
+#login-dp .social-buttons a{
+  width: 49%;
+}
+#login-dp .form-group {
+  margin-bottom: 10px;
+}
+.btn-fb{
+  color: #fff;
+  background-color:#3b5998;
+}
+.btn-fb:hover{
+  color: #fff;
+  background-color:#496ebc 
+}
+.btn-tw{
+  color: #fff;
+  background-color:#55acee;
+}
+.btn-tw:hover{
+  color: #fff;
+  background-color:#59b5fa;
+}
+@media(max-width:768px){
+  #login-dp{
+      background-color: inherit;
+      color: #fff;
+  }
+  #login-dp .bottom{
+      background-color: inherit;
+      border-top:0 none;
+  }
+}
+
+/* LOADING */
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid lightgreen;
+  border-bottom: 16px solid lightgreen;
+  width: 150px;
+  height: 150px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  margin-top: 20%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+/* LOADING */

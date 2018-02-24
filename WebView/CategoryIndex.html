@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-ng-app="app">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- STYLES -->
   <link rel="stylesheet" href="../style/bootstrap4.css">
-  <link rel="stylesheet" href="../style/fontawesome-all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../style/style.css">
   <!-- STYLES -->
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,15 +15,18 @@
   <script src="../Scripts/tether.js"></script>
   <script src="../Scripts/bootstrap.min.js"></script>
   <script src="../Scripts/angular.min.js"></script>
-  <script src="../Scripts/chartist.js"></script>
   <script src="../Scripts/script.js"></script>
   <!-- SCRIPTS -->
   <title>TaskManager - Cadastrar Categorias</title>
 </head>
 
-<body data-ng-app="app">
+<body ng-controller="RouterController as Router" ng-init="Router.checkSession(true)">
+    
+    <div id="overlay">
+        <div class="loader"></div>
+    </div>
 
-  <div id="wrapper">
+  <div id="wrapper" ng-controller="UserController as User">
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
@@ -44,6 +47,10 @@
         <li>
           <a class="side-bar-item" href="TaskIndex.html">
             <span class="fa fa-plus"></span> Cadastrar Tarefa</a>
+        </li>
+        <li>
+          <a class="side-bar-item" href="CategoryIndex.html">
+            <span class="fa fa-plus"></span> Cadastrar Categoria</a>
         </li>
       </ul>
     </div>
@@ -94,7 +101,7 @@
             <tr ng-repeat="(key, value) in catList | filter:novaCategoria">
               <td>{{ value.nome }}</td>
               <td>
-                <button class="btn btn-danger" ng-click="Cats.removeCategoria(catList, key);
+                <button class="btn btn-danger" ng-click="Cats.removeCategoria(catList, key, value.id);
                                 Cats.eraseInput(); novaCategoria = '';Cats.verify('', '', true)">
                   <span class="fa fa-remove"></span> Deletar
                 </button>
