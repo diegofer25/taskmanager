@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-br" data-ng-app="app">
+<html lang="pt-br" data-ng-app="app" ng-controller="RouterController as Router" ng-init="Router.checkSession(true)">
 
 <head>
   <meta charset="UTF-8">
+  <meta name="keywords" content="taskmanager">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Software academico de gerenciamento de tarefas e organização pessoal desenvolvido por Diego Lamarão, estudante de Análise e Desenvolvimento de Sistemas no Instituto INFNET">
+  <link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
   <!-- STYLES -->
   <link rel="stylesheet" href="../style/bootstrap4.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,7 +23,7 @@
   <title>TaskManager - Cadastrar Tarefas</title>
 </head>
 
-<body ng-controller="RouterController as Router" ng-init="Router.checkSession(true)">
+<body>
     
     <div id="overlay">
         <div class="loader"></div>
@@ -30,27 +33,27 @@
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
-          <a class="taskmanager" href="../index.html">
+          <a class="taskmanager" href="#">
             <span class="fa fa-edit manager-logo"></span>
             <span class="task-logo">Task</span>
             <span class="manager-logo">Manager</span>
           </a>
         </li>
-        <li>
-          <a class="side-bar-item" href="../index.html">
-            <span class="fa fa-home"></span> Home</a>
-        </li>
-        <li>
-          <a class="side-bar-item" href="HomeIndex.html">
+        <li ng-click="Router.HomeIndex()">
+          <a class="side-bar-item" href="#">
             <span class="fa fa-tasks"></span> Controle de Tarefas</a>
         </li>
-        <li>
-          <a class="side-bar-item" href="TaskIndex.html">
+        <li ng-click="Router.TaskIndex()">
+          <a class="side-bar-item" href="#">
             <span class="fa fa-plus"></span> Cadastrar Tarefa</a>
         </li>
-        <li>
-          <a class="side-bar-item" href="CategoryIndex.html">
+        <li ng-click="Router.CategoryIndex()">
+          <a class="side-bar-item" href="#">
             <span class="fa fa-plus"></span> Cadastrar Categoria</a>
+        </li>
+        <li ng-click="Router.exit()">
+          <a class="side-bar-item" href="#">
+            <span class="fa fa-window-close-o"></span> Sair</a>
         </li>
       </ul>
     </div>
@@ -63,6 +66,12 @@
             <button href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">
               <span class="fa fa-bars"></span>
             </button>
+            <button class="btn btn-info float-right">
+                Bem Vindo(a) {{User.name}} <span class="fa fa-chevron-down"></span>
+            </button>
+            <div class="float-right img-profile">
+                <img src="{{User.foto}}"/>
+            </div>
           </div>
         </nav>
       </div>
@@ -90,7 +99,7 @@
               Preencha os campos acima para cadastrar uma nova tarefa
             </span>
           </button>
-          <button id="button-submit" class="d-none" ng-click="Tasks.cadTask(tInput, cInput, tlist)">
+          <button id="button-submit" class="d-none" ng-click="Tasks.cadTask(tInput, cInput, tlist, User.id)">
             <span class="fa fa-plus-circle"></span> Cadastrar tarefa
           </button>
         </div>
