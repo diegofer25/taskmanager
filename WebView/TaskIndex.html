@@ -23,7 +23,7 @@
   <title>TaskManager - Cadastrar Tarefas</title>
 </head>
 
-<body>
+<body data-ng-controller="TaskController as Tasks">
     
     <div id="overlay">
         <div class="loader"></div>
@@ -58,7 +58,7 @@
       </ul>
     </div>
 
-    <div id="page-content-wrapper" data-ng-controller="TaskController as Tasks">
+    <div id="page-content-wrapper" data-ng-controller="CategoryController as Cats" ng-init="tlist = Tasks.tarefas; clist = Cats.categorias">
 
       <div class="pos-f-t">
         <nav class="navbar-inverse bg-inverse">
@@ -76,10 +76,16 @@
         </nav>
       </div>
 
-      <div class="container" data-ng-controller="CategoryController as Cats" ng-init="tlist = Tasks.tarefas; clist = Cats.categorias">
+      <div class="container">
         <h2>GERENCIAR TAREFAS</h2>
         <hr>
-        <div class="form">
+        <div ng-if="clist.length == 0" class="jumbotron col-8">
+            <h2>Bem vindo ao Taskmanager</h2>
+            <p ng-if="clist.length == 0">
+                Você não cadastrou nenhuma tarefa e nenhuma categoria, cadastre uma categoria <a href="CategoryIndex.html"><strong>AQUI</strong></a>
+            </p>
+        </div>
+        <div class="form" ng-if="tlist.length > 0">
           <strong for="tarefa">Tarefa: </strong>
           <div class="form-inline mt-1 mb-0">
             <input id="user-input" type="text" class="form-control col-sm-8" id="inlineFormInput" placeholder="Forneça um nome para a nova tarefa..."
@@ -104,7 +110,7 @@
           </button>
         </div>
 
-        <table class="table table-inverse mt-3">
+        <table class="table table-inverse mt-3" ng-if="tlist.length > 0">
           <thead>
             <tr>
               <th>

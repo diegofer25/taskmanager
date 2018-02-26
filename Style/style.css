@@ -28,6 +28,21 @@ a.taskmanager{
   text-shadow: 1px 1px 1px black;
 }
 
+p>a>strong{
+    text-decoration: none;
+    color: lightgreen;
+}
+
+p>a>strong:hover{
+    text-decoration: none;
+    color: green;
+    text-shadown: 1px solid black;
+}
+
+p>a:hover{
+    text-decoration: none;
+}
+
 .manager-logo{
   color: lightgreen;
 }
