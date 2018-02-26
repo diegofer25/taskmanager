@@ -6,7 +6,7 @@
   <meta name="keywords" content="taskmanager">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Software academico de gerenciamento de tarefas e organização pessoal desenvolvido por Diego Lamarão, estudante de Análise e Desenvolvimento de Sistemas no Instituto INFNET">
-  <link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="./images/favicon.png" />
   <!-- STYLES -->
   <link rel="stylesheet" href="../style/bootstrap4.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,10 +24,10 @@
 </head>
 
 <body ng-controller="RouterController as Router" ng-init="Router.checkSession(true)">
-    
-    <div id="overlay">
-        <div class="loader"></div>
-    </div>
+
+  <div id="overlay">
+    <div class="loader"></div>
+  </div>
 
   <div id="wrapper" ng-controller="UserController as User">
     <div id="sidebar-wrapper">
@@ -67,10 +67,11 @@
               <span class="fa fa-bars"></span>
             </button>
             <button class="btn btn-info float-right">
-                Bem Vindo(a) {{User.name}} <span class="fa fa-chevron-down"></span>
+              Bem Vindo(a) {{User.name}}
+              <span class="fa fa-chevron-down"></span>
             </button>
             <div class="float-right img-profile">
-                <img src="{{User.foto}}"/>
+              <img src="{{User.foto}}" />
             </div>
           </div>
         </nav>

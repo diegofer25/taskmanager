@@ -2,25 +2,25 @@
 <html lang="pt-br" data-ng-app="app" ng-controller="RouterController as Router" ng-init="Router.checkSession()">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="keywords" content="taskmanager">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Software academico de gerenciamento de tarefas e organização pessoal desenvolvido por Diego Lamarão, estudante de Análise e Desenvolvimento de Sistemas no Instituto INFNET">
-  <link rel="shortcut icon" type="image/png" href="./images/favicon.png"/>
-  <!-- STYLES -->
-  <link rel="stylesheet" href="style/bootstrap4.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="style/style.css">
-  <!-- STYLES -->
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <!-- SCRIPTS -->
-  <script src="Scripts/jquery3.3.1.js"></script>
-  <script src="Scripts/tether.js"></script>
-  <script src="Scripts/bootstrap.min.js"></script>
-  <script src="Scripts/angular.min.js"></script>
-  <script src="Scripts/script.js"></script>
-  <!-- SCRIPTS -->
-  <title>TaskManager - Registrar</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="taskmanager">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Software academico de gerenciamento de tarefas e organização pessoal desenvolvido por Diego Lamarão, estudante de Análise e Desenvolvimento de Sistemas no Instituto INFNET">
+    <link rel="shortcut icon" type="image/png" href="./images/favicon.png" />
+    <!-- STYLES -->
+    <link rel="stylesheet" href="style/bootstrap4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <!-- STYLES -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- SCRIPTS -->
+    <script src="Scripts/jquery3.3.1.js"></script>
+    <script src="Scripts/tether.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/script.js"></script>
+    <!-- SCRIPTS -->
+    <title>TaskManager - Registrar</title>
 </head>
 
 <body>
@@ -59,17 +59,20 @@
                             <label for="password">Senha</label>
                             <input ng-model="password" type="password" class="form-control" id="password" placeholder="Forneça uma Senha..." required>
                             <small class="form-text mb-1">Minimo de 6 caracteres e máximo de 32.</small>
-                            <input ng-model="passwordConfirm" type="password" class="form-control" id="passwordConfirm" placeholder="Confirme sua Senha..." required>
+                            <input ng-model="passwordConfirm" type="password" class="form-control" id="passwordConfirm" placeholder="Confirme sua Senha..."
+                                required>
                         </div>
                         <div class="form-group">
-                            <button ng-if="password == passwordConfirm" id="registerstatus" class="d-none"><span></span></button>
+                            <button ng-if="password == passwordConfirm" id="registerstatus" class="d-none">
+                                <span></span>
+                            </button>
                             <button class="btn btn-warning btn-block mt-4" ng-if="passwordConfirm && password != passwordConfirm">
                                 <span class="fa fa-warning"></span> Senha não conferem</button>
-                            <button class="btn btn-primary btn-block mt-4"ng-click="password == passwordConfirm ? User.cadUser(name, email, password) : ''"
-                                >Registrar</button>
+                            <button class="btn btn-primary btn-block mt-4" ng-click="password == passwordConfirm ? User.cadUser(name, email, password) : ''">Registrar</button>
                         </div>
                     </form>
-                    <button class="btn btn-info mt-2 mb-2" ng-click="Router.index()"><span class="fa fa-arrow-circle-left"></span> Voltar</button>
+                    <button class="btn btn-info mt-2 mb-2" ng-click="Router.index()">
+                        <span class="fa fa-arrow-circle-left"></span> Voltar</button>
                 </div>
             </div>
             <footer>

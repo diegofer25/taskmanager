@@ -3,10 +3,10 @@ let sessionId = sessionStorage.getItem('sessionId');
 let sessionPhoto = sessionStorage.getItem('sessionPhoto');
 
 $(document).ready(function () {
-    if( !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+    if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
         let time = setInterval(() => {
-        $('#menu-toggle').trigger('click');
-        clearInterval(time);
+            $('#menu-toggle').trigger('click');
+            clearInterval(time);
         }, 300);
     }
     $("#menu-toggle").click(function (e) {
@@ -20,8 +20,8 @@ angular.module("app", [])
     .controller('TaskController', TaskController)
     .controller('CategoryController', CategoryController)
     .controller('UserController', UserController);
-    
-function RouterController(){
+
+function RouterController() {
     let self = this;
     self.year = (new Date()).getFullYear();
     self.titleIndex = "Login";
@@ -38,37 +38,37 @@ function RouterController(){
     self.CategoryIndex = CategoryIndex;
     self.TaskIndex = TaskIndex;
     self.exit = exit;
-    
-    function checkSession(check){
-        if(sessionName && sessionId && sessionName != "undefined" && sessionId != "undefined"){
+
+    function checkSession(check) {
+        if (sessionName && sessionId && sessionName != "undefined" && sessionId != "undefined") {
             let path = window.location.pathname;
-            if( path == '/' || path == '/register.html' || path == '/sessionerror.html'){
+            if (path == '/' || path == '/register.html' || path == '/sessionerror.html') {
                 window.location.assign("../WebView/HomeIndex.html");
             }
-        }else if(check){
+        } else if (check) {
             window.location.assign("../sessionerror.html");
         }
     }
-    
-    function index(){
+
+    function index() {
         window.location.assign("../index.html");
     }
-    function register(){
+    function register() {
         window.location.assign("../register.html");
     }
-    function sessionError(){
+    function sessionError() {
         window.location.assign("../sessionerror.html");
     }
-    function HomeIndex(){
+    function HomeIndex() {
         window.location.assign("../WebView/HomeIndex.html");
     }
-    function CategoryIndex(){
+    function CategoryIndex() {
         window.location.assign("../WebView/CategoryIndex.html");
     }
-    function TaskIndex(){
+    function TaskIndex() {
         window.location.assign("../WebView/TaskIndex.html");
     }
-    function exit(){
+    function exit() {
         sessionStorage.setItem('sessionName', "undefined");
         sessionStorage.setItem('sessionId', "undefined");
         window.location.assign("../index.html");
@@ -82,7 +82,7 @@ function UserController($http) {
     self.foto = sessionPhoto;
     self.cadUser = cadUser;
     self.loginUser = loginUser;
-    
+
     function cadUser(name, email, senha, fbfoto) {
         if (senhaValida(senha)) {
             lockScreen();
@@ -91,13 +91,13 @@ function UserController($http) {
                 foto = fbfoto;
             }
             $http({
-                  "method": "POST",
-                  "async": true,
-                  "crossDomain": true,
-                  "url": "https://taskmanager-api.azurewebsites.net/api/User",
-                  "headers": {
+                "method": "POST",
+                "async": true,
+                "crossDomain": true,
+                "url": "https://taskmanager-api.azurewebsites.net/api/User",
+                "headers": {
                     "content-type": "application/json"
-                  },
+                },
                 "processData": false,
                 "data": {
                     "nome": name,
@@ -114,60 +114,60 @@ function UserController($http) {
                 window.location.assign('WebView/HomeIndex.html');
             }).catch(function (response) {
                 unlockScreen();
-                if(fbfoto){
+                if (fbfoto) {
                     unlockScreen();
                     showWaning("#loginstatus", 'Erro ao realizar Login via Facebook');
-                }else if(response.status == "500"){
+                } else if (response.status == "500") {
                     showWaning("#registerstatus", 'Erro na comunicação com o servidor');
-                }else{
+                } else {
                     showWaning("#registerstatus", 'E-mail já cadastrado no sistema');
                 }
             });
-        }else{
+        } else {
             unlockScreen();
             showWaning("#registerstatus", 'Sua senha não obecede a regra');
         }
     }
-    
-    function senhaValida(senha){
+
+    function senhaValida(senha) {
         let ret = true;
-        if(senha.length < 6 || senha.length > 32){
+        if (senha.length < 6 || senha.length > 32) {
             ret = false;
         }
         return ret;
     }
-    
-    function loginUser(email, senha, fbInfo){
-        if(email && senha){
+
+    function loginUser(email, senha, fbInfo) {
+        if (email && senha) {
             lockScreen();
             $http({
-              "method": "GET",
-              "async": true,
-              "crossDomain": true,
-              "url": `https://taskmanager-api.azurewebsites.net/api/User?email=${email}&senha=${senha}`,
-              "headers": {
-                "cache-control": "no-cache",
-              }
-            }).then(function (response) {
-              let user = response.data;
-              let firstName = user.nome.split(" ");
-              sessionStorage.setItem('sessionName', firstName[0]);
-              sessionStorage.setItem('sessionId', user.id);
-              sessionStorage.setItem('sessionPhoto', user.foto);
-              window.location.assign('WebView/HomeIndex.html');
-            })
-            .catch(function(response){
-                if(fbInfo){
-                    if(fbInfo.email){
-                        cadUser(fbInfo.name, fbInfo.email, fbInfo.id, fbInfo.picture.data.url);
-                    }else{
-                        cadUser(fbInfo.name, fbInfo.id, fbInfo.id, fbInfo.picture.data.url);
-                    }
-                }else{
-                    unlockScreen();
-                    showWaning("#loginstatus", 'E-mail ou senha inválido');
+                "method": "GET",
+                "async": true,
+                "crossDomain": true,
+                "url": `https://taskmanager-api.azurewebsites.net/api/User?email=${email}&senha=${senha}`,
+                "headers": {
+                    "cache-control": "no-cache",
                 }
-            });
+            }).then(function (response) {
+                let user = response.data;
+                let firstName = user.nome.split(" ");
+                sessionStorage.setItem('sessionName', firstName[0]);
+                sessionStorage.setItem('sessionId', user.id);
+                sessionStorage.setItem('sessionPhoto', user.foto);
+                window.location.assign('WebView/HomeIndex.html');
+            })
+                .catch(function (response) {
+                    if (fbInfo) {
+                        if (fbInfo.email) {
+                            cadUser(fbInfo.name, fbInfo.email, fbInfo.id, fbInfo.picture.data.url);
+                        } else {
+                            cadUser(fbInfo.name, fbInfo.id, fbInfo.id, fbInfo.picture.data.url);
+                        }
+                    } else {
+                        unlockScreen();
+                        showWaning("#loginstatus", 'E-mail ou senha inválido');
+                    }
+                });
         }
     }
 }
@@ -177,49 +177,49 @@ function TaskController($http) {
     self.status = stats;
     self.tarefas = [];
     $http.get(`https://taskmanager-api.azurewebsites.net/api/Task/${sessionId}`)
-      .then(function(result) {
-        result.data.forEach(t => {
-            self.tarefas.push(t);
+        .then(function (result) {
+            result.data.forEach(t => {
+                self.tarefas.push(t);
+            });
         });
-    });
     self.checkInput = checkInput;
     self.cadTask = cadTask;
     self.removeTask = removeTask;
     self.showdash = showdash;
     self.flagTask = flagTask;
-    
+
     function cadTask(tInput, cInput, tlist, uid) {
         let info = $('#button-info');
         let submit = $('#button-submit');
         if (tInput && tlist) {
             lockScreen();
             $http({
-              "method": "POST",
-              "async": true,
-              "crossDomain": true,
-              "url": "https://taskmanager-api.azurewebsites.net/api/task",
-              "headers": {
-                "content-type": "application/json",
-              },
-              "processData": false,
-              "data": {
+                "method": "POST",
+                "async": true,
+                "crossDomain": true,
+                "url": "https://taskmanager-api.azurewebsites.net/api/task",
+                "headers": {
+                    "content-type": "application/json",
+                },
+                "processData": false,
+                "data": {
                     nome: tInput,
                     categoria: cInput,
                     feito: false,
                     userid: uid
-                  }
+                }
             }).then(function (response) {
-              unlockScreen();
-              self.categorias.push({ nome: cat });
-              submit.attr('class', 'd-none');
-              $('.form-inline').css('border', 'none');
-              info.attr('class', 'btn btn-success col-sm-12');
-              info.html('<span class="fa fa-check-circle"> Tarefa cadastrada com sucesso</span>');
-            })
-            .catch(function(){
                 unlockScreen();
-            });
-            
+                self.categorias.push({ nome: cat });
+                submit.attr('class', 'd-none');
+                $('.form-inline').css('border', 'none');
+                info.attr('class', 'btn btn-success col-sm-12');
+                info.html('<span class="fa fa-check-circle"> Tarefa cadastrada com sucesso</span>');
+            })
+                .catch(function () {
+                    unlockScreen();
+                });
+
             tlist.push({
                 nome: tInput,
                 categoria: cInput,
@@ -227,47 +227,47 @@ function TaskController($http) {
             });
         }
     }
-    
+
     function removeTask(tlist, key, id) {
         let info = $('#button-info');
         if (confirm(`Deseja mesmo excluir a tarefa "${tlist[key].nome}"`)) {
             lockScreen();
             $http({
-              "method": "DELETE",
-              "async": true,
-              "crossDomain": true,
-              "url": `https://taskmanager-api.azurewebsites.net/api/task/${id}`,
+                "method": "DELETE",
+                "async": true,
+                "crossDomain": true,
+                "url": `https://taskmanager-api.azurewebsites.net/api/task/${id}`,
             }).then(function (response) {
-            	unlockScreen();
+                unlockScreen();
                 tlist.splice(key, 1);
                 info.attr('class', 'btn btn-danger col-sm-12');
                 info.html('<span class="fa fa-check-circle"> Categoria excluida com sucesso</span>');
             })
-            .catch(function(){
-                unlockScreen();
-            });
+                .catch(function () {
+                    unlockScreen();
+                });
         }
     }
-    
-    function flagTask(isdo, key, id){
+
+    function flagTask(isdo, key, id) {
         lockScreen();
         $http({
-          "method": "PUT",
-          "async": true,
-          "crossDomain": true,
-          "url": `https://taskmanager-api.azurewebsites.net/api/task/${id}`,
-          "headers": {
-            "content-type": "application/json",
-          },
-          "processData": false,
-          "data": {feito:isdo}
+            "method": "PUT",
+            "async": true,
+            "crossDomain": true,
+            "url": `https://taskmanager-api.azurewebsites.net/api/task/${id}`,
+            "headers": {
+                "content-type": "application/json",
+            },
+            "processData": false,
+            "data": { feito: isdo }
         }).then(function (response) {
             unlockScreen();
             self.tarefas[key].feito = isdo;
         })
-        .catch(function(){
-            unlockScreen();
-        });
+            .catch(function () {
+                unlockScreen();
+            });
     }
 }
 
@@ -275,43 +275,43 @@ function CategoryController($http) {
     let self = this;
     self.categorias = [];
     $http.get(`https://taskmanager-api.azurewebsites.net/api/Category/${sessionId}`)
-      .then(function(result) {
-        result.data.forEach(c => {
-            self.categorias.push(c);
+        .then(function (result) {
+            result.data.forEach(c => {
+                self.categorias.push(c);
+            });
         });
-    });
     self.verify = verify;
     self.addCategoria = addCategoria;
     self.removeCategoria = removeCategoria;
     self.eraseInput = eraseInput;
-    
+
     function addCategoria(cat, categorias, uid) {
         let but = $('#button-status');
         if (cat && categorias) {
             lockScreen();
             $http({
-              "method": "POST",
-              "async": true,
-              "crossDomain": true,
-              "url": "https://taskmanager-api.azurewebsites.net/api/category",
-              "headers": {
-                "content-type": "application/json",
-              },
-              "processData": false,
-              "data": { 
-                  nome : cat,
-                  userid: uid
-                  }
+                "method": "POST",
+                "async": true,
+                "crossDomain": true,
+                "url": "https://taskmanager-api.azurewebsites.net/api/category",
+                "headers": {
+                    "content-type": "application/json",
+                },
+                "processData": false,
+                "data": {
+                    nome: cat,
+                    userid: uid
+                }
             }).then(function (response) {
-              unlockScreen();
-              self.categorias.push({ nome: cat });
-              but.attr('class', 'btn btn-success col-sm-8 mb-2 mb-sm-0');
-              but.html('<span class="fa fa-check-circle"> Categoria cadastrada com sucesso</span>');
-              $('#button-submit').attr('class', 'd-none');
-            })
-            .catch(function(){
                 unlockScreen();
-            });
+                self.categorias.push({ nome: cat });
+                but.attr('class', 'btn btn-success col-sm-8 mb-2 mb-sm-0');
+                but.html('<span class="fa fa-check-circle"> Categoria cadastrada com sucesso</span>');
+                $('#button-submit').attr('class', 'd-none');
+            })
+                .catch(function () {
+                    unlockScreen();
+                });
         }
     }
 
@@ -321,10 +321,10 @@ function CategoryController($http) {
         if (confirm(`Deseja mesmo excluir a categoria "${list[key].nome}"`)) {
             lockScreen();
             $http({
-              "method": "DELETE",
-              "async": true,
-              "crossDomain": true,
-              "url": `https://taskmanager-api.azurewebsites.net/api/category/${id}`,
+                "method": "DELETE",
+                "async": true,
+                "crossDomain": true,
+                "url": `https://taskmanager-api.azurewebsites.net/api/category/${id}`,
             }).then(function (response) {
                 unlockScreen();
                 list.splice(key, 1);
@@ -333,9 +333,9 @@ function CategoryController($http) {
                 status.attr('class', 'btn btn-danger col-sm-12');
                 status.html('<span class="fa fa-check-circle"> Categoria excluida com sucesso</span>');
             })
-            .catch(function(){
-                unlockScreen();
-            });
+                .catch(function () {
+                    unlockScreen();
+                });
         }
     }
 }
@@ -437,11 +437,11 @@ function showdash(taks, cats) {
         }
     });
     let dash = $('#dashstatus');
-    if(dash && total != 0){
+    if (dash && total != 0) {
         Chartist.Pie('#dashstatus', {
-        labels: [`${parseInt((concluidas / total) * 100)}%`, `${parseInt((pendentes / total) * 100)}%`],
-        series: [(concluidas / total) * 100, (pendentes / total) * 100]
-      });
+            labels: [`${parseInt((concluidas / total) * 100)}%`, `${parseInt((pendentes / total) * 100)}%`],
+            series: [(concluidas / total) * 100, (pendentes / total) * 100]
+        });
     }
 
     cats.forEach(c => {
@@ -458,52 +458,53 @@ function showdash(taks, cats) {
             }
         });
         let dashcats = $(`#${c.nome}`);
-        if(dashcats && total != 0){
+        if (dashcats && total != 0) {
             Chartist.Pie(`#${c.nome}`, {
-            labels: [`${parseInt((concluidas / total) * 100)}%`, `${parseInt((pendentes / total) * 100)}%`],
-            series: [(concluidas / total) * 100, (pendentes / total) * 100]});
+                labels: [`${parseInt((concluidas / total) * 100)}%`, `${parseInt((pendentes / total) * 100)}%`],
+                series: [(concluidas / total) * 100, (pendentes / total) * 100]
+            });
         }
     });
 }
 
-function lockScreen(){
+function lockScreen() {
     $("#overlay").css("display", "block");
 }
 
-function unlockScreen(){
+function unlockScreen() {
     $("#overlay").css("display", "none");
 }
 
-function showWaning(elem, msg){
-    $(elem).attr("class","btn btn-warning col-12");
+function showWaning(elem, msg) {
+    $(elem).attr("class", "btn btn-warning col-12");
     $(elem).text(msg);
-    $(elem+">span").attr("class","fa fa-warning");
+    $(elem + ">span").attr("class", "fa fa-warning");
 }
 
 let token = "";
 
 function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      token = response.authResponse.accessToken;
-      statusChangeCallback(response);
+    FB.getLoginStatus(function (response) {
+        token = response.authResponse.accessToken;
+        statusChangeCallback(response);
     });
-  }
-  
-  function statusChangeCallback(response) {
+}
+
+function statusChangeCallback(response) {
     if (response.status === 'connected') {
-      fblogin();
+        fblogin();
     }
-  }
-  
-  function fblogin() {
-    FB.api('/me?fields=id,name,picture,email', function(response) {
-        if(response.email){
+}
+
+function fblogin() {
+    FB.api('/me?fields=id,name,picture,email', function (response) {
+        if (response.email) {
             angular.element(document.getElementById('page-content-wrapper')).scope()
-            .User.loginUser(response.email, response.id, response);
-        }else{
+                .User.loginUser(response.email, response.id, response);
+        } else {
             angular.element(document.getElementById('page-content-wrapper')).scope()
-            .User.loginUser(response.id, response.id, response);
+                .User.loginUser(response.id, response.id, response);
         }
-      
+
     });
 }
